@@ -10,7 +10,7 @@ class ToDoBox extends Component {
   }
   submit(e) {
     if (e.key === "Enter") {
-      this.props.onSubmit.call()
+      this.props.onSubmit(e)
     }
   }
 }
