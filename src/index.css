@@ -1,14 +1,10 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  background: #ddd;
 }
 
 #root2 {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(to right bottom, #ac5d94, #51fa2c);
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
 }

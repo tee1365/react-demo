@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import ToDoBox from "./ToDoBox.js"
 import ToDoItem from "./ToDoItem.js"
+import "./App.css"
+import "./reset.css"
+import "normalize.css"
+
 
 class App extends Component {
   constructor(props) {
