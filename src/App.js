@@ -15,13 +15,21 @@ class App extends Component {
   }
 
   render() {
-    let todos = this.state.todoList.map((item, index) => {
-      return (
-        <li key={index}>
-          <ToDoItem content={item} />
-        </li>
-      );
-    });
+    let todos = this.state.todoList
+      .filter(function(list) {
+        return !list.deleted;
+      })
+      .map((item, index) => {
+        return (
+          <li key={index}>
+            <ToDoItem
+              todo={item}
+              onToggle={this.toggle.bind(this)}
+              onDelete={this.delete.bind(this)}
+            />
+          </li>
+        );
+      });
 
     return (
       <div className="App">
@@ -45,12 +53,22 @@ class App extends Component {
       status: null,
       deleted: false
     });
-    this.setState({newTodo: "", todoList: this.state.todoList})
+    this.setState({newTodo: "", todoList: this.state.todoList});
   }
 
   changeContent(e) {
-    this.setState({newTodo: e.target.value, todoList: this.state.todoList})
+    this.setState({newTodo: e.target.value, todoList: this.state.todoList});
     console.log(e.target);
+  }
+
+  toggle(e, todo) {
+    todo.status = todo.status === "completed" ? "" : "completed";
+    this.setState(this.state);
+  }
+
+  delete(e, todo) {
+    todo.deleted = true;
+    this.setState(this.state);
   }
 }
 
