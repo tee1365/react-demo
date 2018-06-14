@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import "./ToDoBox.css";
 
 class ToDoBox extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class ToDoBox extends Component {
   render() {
     return (
       <input
+        className="ToDoBox"
         type="text"
         value={this.props.content}
         onChange={this.changeContent}

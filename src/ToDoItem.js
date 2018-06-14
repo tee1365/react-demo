@@ -1,16 +1,20 @@
 import React, {Component} from "react";
+import "./ToDoItem.css";
 
 class ToDoItem extends Component {
   render() {
     return (
-      <div>
+      <div className="ToDoItem">
         <input
+          className="ToDoItem-checkbox"
           type="checkbox"
           checked={this.props.todo.status === "completed"}
           onChange={this.toggle.bind(this)}
         />
-        {this.props.todo.title}
-        <button onClick={this.delete.bind(this)}>x</button>
+        <span className="ToDoItem-title">{this.props.todo.title}</span>
+        <button className="ToDoItem-button" onClick={this.delete.bind(this)}>
+          x
+        </button>
       </div>
     );
   }

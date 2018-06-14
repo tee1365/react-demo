@@ -1,0 +1,25 @@
+.ToDoItem {
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.ToDoItem-title {
+  display: inline-block;
+  margin: 0 0.5em;
+  width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ToDoItem-button {
+  width: 30px;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 50%;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+}

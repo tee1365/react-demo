@@ -21,7 +21,7 @@ class App extends Component {
       })
       .map((item, index) => {
         return (
-          <li key={index}>
+          <li key={index} className="ToDoLi">
             <ToDoItem
               todo={item}
               onToggle={this.toggle.bind(this)}
@@ -58,7 +58,6 @@ class App extends Component {
 
   changeContent(e) {
     this.setState({newTodo: e.target.value, todoList: this.state.todoList});
-    console.log(e.target);
   }
 
   toggle(e, todo) {
