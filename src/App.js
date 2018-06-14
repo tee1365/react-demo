@@ -5,7 +5,6 @@ import "./App.css"
 import "./reset.css"
 import "normalize.css"
 
-
 class App extends Component {
   constructor(props) {
     super(props)
@@ -29,10 +28,14 @@ class App extends Component {
     return (<div className="App">
       <h1>a to-do list</h1>
       <div className="inputBox">
-        <ToDoBox content={this.state.newTodo}/>
+        <ToDoBox content={this.state.newTodo} onSubmit={this.addToDo}/>
       </div>
       <ToDoItem content={todos}/>
     </div>);
+  }
+
+  addToDo() {
+    console.log("add a todo list");
   }
 }
 
