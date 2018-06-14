@@ -1,20 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+import ToDoBox from "./ToDoBox.js"
+import ToDoItem from "./ToDoItem.js"
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      newTodo: "hello",
+      todoList: [
+        {
+          id: 1,
+          title: "first",
+          deleted: false
+        }
+      ]
+    }
+  }
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+    let todos = this.state.todoList.map((item, index) => {
+      return <li>{item.title}</li>
+    })
+    console.log(todos);
+    return (<div className="App">
+      <h1>a to-do list</h1>
+      <div className="inputBox">
+        <ToDoBox content={this.state.newTodo}/>
       </div>
-    );
+      <ToDoItem content={todos}/>
+    </div>);
   }
 }
 

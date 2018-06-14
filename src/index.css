@@ -10,4 +10,5 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   background: linear-gradient(to right bottom, #ac5d94, #51fa2c);
+  padding: 20px;
 }
