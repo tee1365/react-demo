@@ -4,23 +4,22 @@
   color: #333;
   border: 1px solid #aaa;
   border-radius: 10px;
-  margin: 2em;
+  margin: 3em;
   background: white;
   min-height: 20em;
   min-width: 32em;
-  box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.15);
+  box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.4);
+  font-family: verdana;
 }
 
 .App h1 {
   margin: 0;
   margin-right: -1px;
-  padding: 20px;
-  background-clip: border-box;
-  background-image: linear-gradient(to right bottom, blue, pink);
-  background-size: 100% 80px;
-  background-repeat: no-repeat;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  padding: 60px;
+  background-image: url("https://images.unsplash.com/photo-1493130952181-47e36589f64d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8fd0110b525169566326153270aae274&auto=format&fit=crop&w=1123&q=80");
+  background-size: 100%;
+  text-align: center;
+  color: #000;
 }
 
 .ToDoLi {

@@ -34,14 +34,17 @@ import "./ToDoItem.css";
 const ToDoItem = props => {
   return (
     <div className="ToDoItem">
-      <input
-        className="ToDoItem-checkbox"
-        type="checkbox"
-        checked={props.todo.status === "completed"}
-        onChange={e => {
-          props.toggleItem(e, props.todo);
-        }}
-      />
+      <label className="ToDoItem-container">
+        <input
+          className="ToDoItem-checkbox"
+          type="checkbox"
+          checked={props.todo.status === "completed"}
+          onChange={e => {
+            props.toggleItem(e, props.todo, props.index);
+          }}
+        />
+        <span className="ToDoItem-checkmark" />
+      </label>
       <span className="ToDoItem-title">{props.todo.title}</span>
       <button
         className="ToDoItem-button"
@@ -49,7 +52,7 @@ const ToDoItem = props => {
           props.deleteItem(e, props.todo);
         }}
       >
-        x
+        delete
       </button>
     </div>
   );

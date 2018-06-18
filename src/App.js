@@ -23,6 +23,7 @@ class App extends Component {
         return (
           <li key={index} className="ToDoLi">
             <ToDoItem
+              index={index}
               todo={item}
               toggleItem={this.toggle.bind(this)} // 子组件onChange时调用
               deleteItem={this.delete.bind(this)} // 子组件onClick时调用
@@ -37,8 +38,8 @@ class App extends Component {
         <div className="inputBox">
           <ToDoBox
             content={this.state.newTodo}
-            submitBox={this.addToDo.bind(this)}  // 子组件onKeyPress时调用
-            changeBox={this.changeContent.bind(this)}  // 子组件onChange时调用
+            submitBox={this.addToDo.bind(this)} // 子组件onKeyPress时调用
+            changeBox={this.changeContent.bind(this)} // 子组件onChange时调用
           />
         </div>
         {todos}
@@ -60,8 +61,19 @@ class App extends Component {
     this.setState({newTodo: e.target.value, todoList: this.state.todoList});
   }
 
-  toggle(e, todo) {
-    todo.status = todo.status === "completed" ? "" : "completed";
+  toggle(e, todo, index) {
+    // todo.status = todo.status === "completed" ? "" : "completed";
+    let currentItem = document.querySelectorAll(".ToDoItem")[index];
+    if (todo.status === "completed") {
+      todo.status = "";
+      currentItem.querySelector(".ToDoItem-title").style.textDecoration = "";
+      currentItem.style.backgroundColor = "#fff";
+    } else {
+      todo.status = "completed";
+      currentItem.querySelector(".ToDoItem-title").style.textDecoration =
+        "line-through";
+      currentItem.style.backgroundColor = "lightblue";
+    }
     this.setState(this.state);
   }
 

@@ -1,25 +1,87 @@
 .ToDoItem {
-  margin: 0.5em 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+
+.ToDoItem:hover {
+  background-color: lightblue;
 }
 
 .ToDoItem-title {
   display: inline-block;
-  margin: 0 0.5em;
+  margin: 1em 0.5em;
   width: 60%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: left;
 }
 
 .ToDoItem-button {
-  width: 30px;
+  width: 80px;
+  height: 100%;
   text-align: center;
   padding: 5px 0;
-  border-radius: 50%;
   border: none;
   background: #ddd;
   cursor: pointer;
+}
+
+.ToDoItem-button:hover {
+  background: #ccc;
+}
+
+.ToDoItem-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.ToDoItem-checkbox {
+  position: absolute;
+  display: none;
+  cursor: pointer;
+}
+
+.ToDoItem-checkmark {
+  position: absolute;
+  top: -9px;
+  left: 20px;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+}
+
+.ToDoItem-checkbox:hover~.ToDoItem-checkmark {
+  background-color: #ccc;
+}
+
+.ToDoItem-checkbox:checked~.ToDoItem-checkmark {
+  background-color: #2196F3;
+}
+
+.ToDoItem-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.ToDoItem-checkbox:checked~.ToDoItem-checkmark:after {
+  display: block;
+}
+
+.ToDoItem-container .ToDoItem-checkmark:after {
+  left: 6px;
+  top: 0;
+  width: 8px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
