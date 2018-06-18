@@ -24,8 +24,8 @@ class App extends Component {
           <li key={index} className="ToDoLi">
             <ToDoItem
               todo={item}
-              onToggle={this.toggle.bind(this)}
-              onDelete={this.delete.bind(this)}
+              toggleItem={this.toggle.bind(this)} // 子组件onChange时调用
+              deleteItem={this.delete.bind(this)} // 子组件onClick时调用
             />
           </li>
         );
@@ -37,8 +37,8 @@ class App extends Component {
         <div className="inputBox">
           <ToDoBox
             content={this.state.newTodo}
-            onSubmit={this.addToDo.bind(this)}
-            onChange={this.changeContent.bind(this)}
+            submitBox={this.addToDo.bind(this)}  // 子组件onKeyPress时调用
+            changeBox={this.changeContent.bind(this)}  // 子组件onChange时调用
           />
         </div>
         {todos}
