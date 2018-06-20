@@ -1,17 +1,18 @@
 import React, {Component} from "react";
 import ToDoBox from "./ToDoBox.js";
 import ToDoItem from "./ToDoItem.js";
-import * as localStorage from "./localStorage.js";
+import UserDialog from "./UserDialog.js";
 import "./App.css";
 import "normalize.css";
 import "./reset.css";
+import "./UserDialog.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newTodo: "",
-      todoList: localStorage.load("todoList") || []
+      todoList: []
     };
   }
 
@@ -43,6 +44,7 @@ class App extends Component {
           />
         </div>
         {todos}
+        <UserDialog />
       </div>
     );
   }
@@ -71,9 +73,7 @@ class App extends Component {
     this.setState(this.state);
   }
 
-  componentDidUpdate(todo) {
-    localStorage.save("todoList", this.state.todoList);
-  }
+  componentDidUpdate(todo) {}
 }
 
 export default App;
