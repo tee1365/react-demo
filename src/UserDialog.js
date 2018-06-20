@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-//import './UserDialog.css'
+import {signUp, signIn} from "./leanCloud.js";
 export default class UserDialog extends Component {
   constructor(props) {
     super(props);
@@ -18,18 +18,32 @@ export default class UserDialog extends Component {
     });
   }
 
-  signIn(e) {}
-  signUp(e) {}
-
-  changeUsername(e) {
-    let stateCopy = JSON.parse(JSON.parse(this.state));
-    stateCopy.formData.username = e.target.value;
-    this.setState(stateCopy);
+  signUp(e) {
+    e.preventDefault();
+    let {username, password} = this.state.formData;
+    let success = user => {
+      this.props.onSignUp.call(null, user);
+    };
+    let error = error => {
+      alert(error);
+    };
+    signUp(username, password, success, error);
+  }
+  signIn(e) {
+    e.preventDefault();
+    let {username, password} = this.state.formData;
+    let success = user => {
+      this.props.onSignIn.call(null, user);
+    };
+    let error = error => {
+      alert(error);
+    };
+    signIn(username, password, success, error);
   }
 
-  changePassword(e) {
-    let stateCopy = JSON.parse(JSON.parse(this.state));
-    stateCopy.formData.password = e.target.value;
+  changeFormData(key, e) {
+    let stateCopy = JSON.parse(JSON.stringify(this.state));
+    stateCopy.formData[key] = e.target.value;
     this.setState(stateCopy);
   }
 
@@ -42,14 +56,18 @@ export default class UserDialog extends Component {
             <input
               type="text"
               value={this.state.formData.username}
-              onChange={this.changeUsername.bind(this)}
+              onChange={this.changeFormData.bind(this, "username")}
             />
           </label>
         </div>
         <div className="row">
           <label>
             密码
-            <input type="password" />
+            <input
+              type="password"
+              value={this.state.formData.password}
+              onChange={this.changeFormData.bind(this, "password")}
+            />
           </label>
         </div>
         <div className="row actions">
@@ -66,14 +84,18 @@ export default class UserDialog extends Component {
             <input
               type="text"
               value={this.state.formData.username}
-              onChange={this.changeUsername.bind(this)}
+              onChange={this.changeFormData.bind(this, "username")}
             />
           </label>
         </div>
         <div className="row">
           <label>
             密码
-            <input type="password" />
+            <input
+              type="password"
+              value={this.state.formData.password}
+              onChange={this.changeFormData.bind(this, "password")}
+            />
           </label>
         </div>
         <div className="row actions">
@@ -91,6 +113,7 @@ export default class UserDialog extends Component {
                 type="radio"
                 value="signUp"
                 checked={this.state.selected === "signUp"}
+                onChange={this.switch.bind(this)}
               />
               注册
             </label>
@@ -99,6 +122,7 @@ export default class UserDialog extends Component {
                 type="radio"
                 value="signIn"
                 checked={this.state.selected === "signIn"}
+                onChange={this.switch.bind(this)}
               />
               登录
             </label>
