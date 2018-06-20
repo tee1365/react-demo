@@ -20,23 +20,26 @@
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.35);
 }
 
-.UserDialog>nav:first-child {
-  padding: 1em;
-  margin-left: -2em;
-}
-
-.UserDialog>nav:first-child label {
-  margin-left: 2em;
+.UserDialog > nav label {
+  float: right;
+  margin-right: 2em;
+  margin-top: 20px;
   cursor: pointer;
+  text-decoration: underline;
+  color: #aaa;
 }
 
-.UserDialog>.panes {
+.UserDialog input {
+  display: none;
+}
+
+.UserDialog > .panes {
   padding: 0 1em 1em;
 }
 
-.UserDialog form>.row {
+.UserDialog form > .row {
   display: flex;
-  padding: .3em 0;
+  padding: 0.3em 0;
 }
 
 .UserDialog .row label {
@@ -46,4 +49,21 @@
 .UserDialog .row input {
   margin-top: 0.5em;
   display: block;
+}
+
+.UserDialog .actions button {
+  display: inline-block;
+  height: 24px;
+  width: 60px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.UserDialog .actions button:hover {
+  background-color: #bbb;
+}
+
+.UserDialog .dialog-header {
+  margin: 20px 0 30px 14px;
 }

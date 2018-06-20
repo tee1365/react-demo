@@ -1,5 +1,5 @@
 .App {
-  width: 600px;
+  width: 32em;
   position: relative;
   color: #333;
   border: 1px solid #aaa;
@@ -7,7 +7,6 @@
   margin: 3em;
   background: white;
   min-height: 20em;
-  min-width: 32em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.4);
   font-family: verdana;
 }
@@ -22,10 +21,16 @@
   color: #000;
 }
 
-.ToDoLi {
-  border-bottom: 1px solid #ccc;
-}
-
-.ToDoLi:last-child {
+.sign-button {
+  display: inline-block;
+  width: 80px;
+  height: 32px;
+  font-size: 18px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0);
   border: none;
+  color: #fff;
+  cursor: pointer;
 }

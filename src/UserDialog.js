@@ -25,7 +25,23 @@ export default class UserDialog extends Component {
       this.props.onSignUp.call(null, user);
     };
     let error = error => {
-      alert(error);
+      switch (error.code) {
+        case 202:
+          alert("用户名已经被占用。");
+          break;
+        case 217:
+          alert("无效的用户名，不允许空白用户名。");
+          break;
+        case 218:
+          alert("无效的密码，不允许空白密码。");
+          break;
+        case 219:
+          alert("登录失败次数超过限制，请稍候再试，或者通过忘记密码重设密码。");
+          break;
+        default:
+          alert(error);
+          break;
+      }
     };
     signUp(username, password, success, error);
   }
@@ -36,13 +52,29 @@ export default class UserDialog extends Component {
       this.props.onSignIn.call(null, user);
     };
     let error = error => {
-      alert(error);
+      switch (error.code) {
+        case 200:
+          alert("没有提供用户名，或者用户名为空。");
+          break;
+        case 201:
+          alert("没有提供密码，或者密码为空。");
+          break;
+        case 210:
+          alert("用户名和密码不匹配。");
+          break;
+        case 211:
+          alert("找不到用户。");
+          break;
+        default:
+          alert(error);
+          break;
+      }
     };
     signIn(username, password, success, error);
   }
 
   changeFormData(key, e) {
-    let stateCopy = JSON.parse(JSON.stringify(this.state));
+    let stateCopy = copyState(this.state);
     stateCopy.formData[key] = e.target.value;
     this.setState(stateCopy);
   }
@@ -52,7 +84,7 @@ export default class UserDialog extends Component {
       <form className="signIn" onSubmit={this.signIn.bind(this)}>
         <div className="row">
           <label>
-            用户名
+            用户名:
             <input
               type="text"
               value={this.state.formData.username}
@@ -62,7 +94,7 @@ export default class UserDialog extends Component {
         </div>
         <div className="row">
           <label>
-            密码
+            密码:
             <input
               type="password"
               value={this.state.formData.password}
@@ -71,7 +103,7 @@ export default class UserDialog extends Component {
           </label>
         </div>
         <div className="row actions">
-          <button type="submit">登录</button>
+          <button type="submit">提交</button>
         </div>
       </form>
     );
@@ -80,7 +112,7 @@ export default class UserDialog extends Component {
       <form className="signUp" onSubmit={this.signUp.bind(this)}>
         <div className="row">
           <label>
-            用户名
+            用户名:
             <input
               type="text"
               value={this.state.formData.username}
@@ -90,7 +122,7 @@ export default class UserDialog extends Component {
         </div>
         <div className="row">
           <label>
-            密码
+            密码:
             <input
               type="password"
               value={this.state.formData.password}
@@ -99,7 +131,7 @@ export default class UserDialog extends Component {
           </label>
         </div>
         <div className="row actions">
-          <button type="submit">注册</button>
+          <button type="submit">提交</button>
         </div>
       </form>
     );
@@ -127,6 +159,9 @@ export default class UserDialog extends Component {
               登录
             </label>
           </nav>
+          <h2 className="dialog-header">
+            {this.state.selected === "signUp" ? "注册" : "登录"}
+          </h2>
           <div className="panes">
             {this.state.selected === "signUp" ? signUpForm : signInForm}
           </div>
@@ -134,4 +169,8 @@ export default class UserDialog extends Component {
       </div>
     );
   }
+}
+
+function copyState(state) {
+  return JSON.parse(JSON.stringify(state));
 }

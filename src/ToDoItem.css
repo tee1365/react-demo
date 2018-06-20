@@ -2,10 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #ccc;
 }
 
 .ToDoItem:hover {
-  background-color: lightblue;
+  background-color: #19c2c7;
 }
 
 .ToDoItem-title {
@@ -58,12 +59,12 @@
   background-color: #eee;
 }
 
-.ToDoItem-checkbox:hover~.ToDoItem-checkmark {
+.ToDoItem-checkbox:hover ~ .ToDoItem-checkmark {
   background-color: #ccc;
 }
 
-.ToDoItem-checkbox:checked~.ToDoItem-checkmark {
-  background-color: #2196F3;
+.ToDoItem-checkbox:checked ~ .ToDoItem-checkmark {
+  background-color: #2196f3;
 }
 
 .ToDoItem-checkmark:after {
@@ -72,7 +73,7 @@
   display: none;
 }
 
-.ToDoItem-checkbox:checked~.ToDoItem-checkmark:after {
+.ToDoItem-checkbox:checked ~ .ToDoItem-checkmark:after {
   display: block;
 }
 

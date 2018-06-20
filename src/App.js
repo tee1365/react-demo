@@ -40,7 +40,9 @@ class App extends Component {
         <h1>
           {this.state.user.username || "我"}的待办
           {this.state.user.id ? (
-            <button onClick={this.signOut.bind(this)}>登出</button>
+            <button className="sign-button" onClick={this.signOut.bind(this)}>
+              登出
+            </button>
           ) : null}
         </h1>
         <div className="inputBox">
@@ -85,23 +87,19 @@ class App extends Component {
     this.setState(this.state);
   }
 
-  componentDidUpdate(todo) {}
-
   onSignUporSignIn(user) {
-    let stateCopy = JSON.parse(JSON.stringify(this.state));
+    let stateCopy = copyState(this.state);
     stateCopy.user = user;
     this.setState(stateCopy);
   }
 
   signOut() {
     signOut();
-    let stateCopy = JSON.parse(JSON.stringify(this.state));
+    let stateCopy = copyState(this.state);
     stateCopy.user = {};
     this.setState(stateCopy);
   }
 }
-
-export default App;
 
 let id = 0;
 
@@ -109,3 +107,9 @@ function idMaker() {
   id++;
   return id;
 }
+
+function copyState(state) {
+  return JSON.parse(JSON.stringify(state));
+}
+
+export default App;

@@ -40,19 +40,5 @@ class ToDoItem extends Component {
       </div>
     );
   }
-
-  // changeStyle(e, todo) {
-  //   const uncheckedStyle = {
-  //     backgroundColor:"#ccc",
-  //     textDecoration:"none"
-  //   }
-  //   const checkedStyle = {
-  //     backgroundColor:"lightblue",
-  //     textDecoration:"line-through"
-  //   }
-  //   this.props.todo.status === "completed"
-  //     ? (this._item.style= uncheckedStyle)
-  //     : (this._item.style = checkedStyle);
-  // }
 }
 export default ToDoItem;
