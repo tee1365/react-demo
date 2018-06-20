@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ToDoBox from "./ToDoBox.js";
 import ToDoItem from "./ToDoItem.js";
+import * as localStorage from "./localStorage.js";
 import "./App.css";
 import "normalize.css";
 import "./reset.css";
@@ -10,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       newTodo: "",
-      todoList: []
+      todoList: localStorage.load("todoList") || []
     };
   }
 
@@ -23,7 +24,6 @@ class App extends Component {
         return (
           <li key={index} className="ToDoLi">
             <ToDoItem
-              index={index}
               todo={item}
               toggleItem={this.toggle.bind(this)} // 子组件onChange时调用
               deleteItem={this.delete.bind(this)} // 子组件onClick时调用
@@ -61,25 +61,18 @@ class App extends Component {
     this.setState({newTodo: e.target.value, todoList: this.state.todoList});
   }
 
-  toggle(e, todo, index) {
-    // todo.status = todo.status === "completed" ? "" : "completed";
-    let currentItem = document.querySelectorAll(".ToDoItem")[index];
-    if (todo.status === "completed") {
-      todo.status = "";
-      currentItem.querySelector(".ToDoItem-title").style.textDecoration = "";
-      currentItem.style.backgroundColor = "#fff";
-    } else {
-      todo.status = "completed";
-      currentItem.querySelector(".ToDoItem-title").style.textDecoration =
-        "line-through";
-      currentItem.style.backgroundColor = "lightblue";
-    }
+  toggle(e, todo) {
+    todo.status = todo.status === "completed" ? "" : "completed";
     this.setState(this.state);
   }
 
   delete(e, todo) {
     todo.deleted = true;
     this.setState(this.state);
+  }
+
+  componentDidUpdate(todo) {
+    localStorage.save("todoList", this.state.todoList);
   }
 }
 
