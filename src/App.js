@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import ToDoBox from "./ToDoBox.js";
 import ToDoItem from "./ToDoItem.js";
 import UserDialog from "./UserDialog.js";
-import {getCurrentUser, signOut} from "./leanCloud.js";
+import {getCurrentUser, signOut, TodoModel} from "./leanCloud.js";
 import "./App.css";
 import "normalize.css";
 import "./reset.css";
@@ -16,6 +16,7 @@ class App extends Component {
       newTodo: "",
       todoList: []
     };
+    this.initUserData();
   }
 
   render() {
@@ -57,6 +58,7 @@ class App extends Component {
           <UserDialog
             onSignUp={this.onSignUporSignIn.bind(this)}
             onSignIn={this.onSignUporSignIn.bind(this)}
+            onLoadData={this.initUserData.bind(this)}
           />
         )}
       </div>
@@ -64,13 +66,25 @@ class App extends Component {
   }
 
   addToDo(e) {
-    this.state.todoList.push({
-      id: idMaker(),
+    let newTodo = {
       title: e.target.value,
-      status: null,
+      status: "",
       deleted: false
-    });
-    this.setState({newTodo: "", todoList: this.state.todoList});
+    };
+    TodoModel.create(
+      newTodo,
+      id => {
+        newTodo.id = id;
+        this.state.todoList.push(newTodo);
+        this.setState({
+          newTodo: "",
+          todoList: this.state.todoList
+        });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   changeContent(e) {
@@ -78,13 +92,25 @@ class App extends Component {
   }
 
   toggle(e, todo) {
+    let oldStatus = todo.status;
     todo.status = todo.status === "completed" ? "" : "completed";
-    this.setState(this.state);
+    TodoModel.update(
+      todo,
+      () => {
+        this.setState(this.state);
+      },
+      error => {
+        todo.status = oldStatus;
+        this.setState(this.state);
+      }
+    );
   }
 
   delete(e, todo) {
-    todo.deleted = true;
-    this.setState(this.state);
+    TodoModel.destroy(todo.id, () => {
+      todo.deleted = true;
+      this.setState(this.state);
+    });
   }
 
   onSignUporSignIn(user) {
@@ -97,15 +123,20 @@ class App extends Component {
     signOut();
     let stateCopy = copyState(this.state);
     stateCopy.user = {};
+    stateCopy.todoList = [];
     this.setState(stateCopy);
   }
-}
 
-let id = 0;
-
-function idMaker() {
-  id++;
-  return id;
+  initUserData() {
+    let user = getCurrentUser();
+    if (user) {
+      TodoModel.getByUser(user, todolist => {
+        let stateCopy = copyState(this.state);
+        stateCopy.todoList = todolist;
+        this.setState(stateCopy);
+      });
+    }
+  }
 }
 
 function copyState(state) {

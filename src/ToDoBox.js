@@ -13,7 +13,7 @@ const ToDoBox = props => {
           props.changeBox(e); // 触发onChange时通过回调函数传给父组件
         }}
         onKeyPress={e => {
-          if (e.key === "Enter" && props.content.replace(/\s+/g,"") !== "") {
+          if (e.key === "Enter" && e.target.value.trim() !== "") {
             props.submitBox(e);
           }
         }}

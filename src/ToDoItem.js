@@ -16,7 +16,6 @@ class ToDoItem extends Component {
             checked={this.props.todo.status === "completed"}
             onChange={e => {
               this.props.toggleItem(e, this.props.todo);
-              // this.changeStyle(e, this.props.todo);
             }}
           />
           <span className="ToDoItem-checkmark" />

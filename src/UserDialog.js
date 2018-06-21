@@ -45,11 +45,13 @@ export default class UserDialog extends Component {
     };
     signUp(username, password, success, error);
   }
+
   signIn(e) {
     e.preventDefault();
     let {username, password} = this.state.formData;
     let success = user => {
       this.props.onSignIn.call(null, user);
+      this.props.onLoadData.call(null);
     };
     let error = error => {
       switch (error.code) {
