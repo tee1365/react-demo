@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import ToDoBox from "./ToDoBox.js";
 import ToDoItem from "./ToDoItem.js";
 import UserDialog from "./UserDialog.js";
-import {getCurrentUser, signOut, TodoModel} from "./leanCloud.js";
+import {getCurrentUser, logOut, TodoModel} from "./leanCloud.js";
+import TodoConfig from "./TodoConfig.js";
 import "./App.css";
 import "normalize.css";
 import "./reset.css";
@@ -39,11 +40,12 @@ class App extends Component {
     return (
       <div className="App">
         <h1>
-          {this.state.user.username || "我"}的待办
+          {this.state.user.username || "我"}的待办列表
           {this.state.user.id ? (
-            <button className="sign-button" onClick={this.signOut.bind(this)}>
-              登出
-            </button>
+            <TodoConfig
+              clearList={this.clearList.bind(this)}
+              logOut={this.logOut.bind(this)}
+            />
           ) : null}
         </h1>
         <div className="inputBox">
@@ -106,21 +108,14 @@ class App extends Component {
     );
   }
 
-  delete(e, todo) {
-    TodoModel.destroy(todo.id, () => {
-      todo.deleted = true;
-      this.setState(this.state);
-    });
-  }
-
   onSignUporSignIn(user) {
     let stateCopy = copyState(this.state);
     stateCopy.user = user;
     this.setState(stateCopy);
   }
 
-  signOut() {
-    signOut();
+  logOut() {
+    logOut();
     let stateCopy = copyState(this.state);
     stateCopy.user = {};
     stateCopy.todoList = [];
@@ -133,6 +128,23 @@ class App extends Component {
       TodoModel.getByUser(user, todolist => {
         let stateCopy = copyState(this.state);
         stateCopy.todoList = todolist;
+        this.setState(stateCopy);
+      });
+    }
+  }
+
+  delete(e, todo) {
+    TodoModel.destroy(todo.id, () => {
+      todo.deleted = true;
+      this.setState(this.state);
+    });
+  }
+
+  clearList() {
+    let stateCopy = copyState(this.state);
+    for (let i = 0; i < stateCopy.todoList.length; i++) {
+      TodoModel.destroy(stateCopy.todoList[i].id, () => {
+        stateCopy.todoList[i].deleted = true;
         this.setState(stateCopy);
       });
     }

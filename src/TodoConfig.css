@@ -1,0 +1,34 @@
+.todo-config-button {
+  display: inline-block;
+  width: 80px;
+  height: 32px;
+  font-size: 18px;
+  position: relative;
+  float: right;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+  margin-right: -40px;
+  margin-top: -60px;
+}
+
+.todo-config-list {
+  /* display: none; */
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  font-size: 14px;
+  text-align: center;
+  box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.4);
+}
+
+.todo-config-button:hover + .todo-config-list {
+  display: inline-block;
+}
+
+.todo-config-list > li {
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-top: none;
+  cursor: pointer;
+}

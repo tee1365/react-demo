@@ -41,7 +41,7 @@ export function getCurrentUser() {
   }
 }
 
-export function signOut() {
+export function logOut() {
   AV.User.logOut();
   return undefined;
 }
@@ -115,5 +115,9 @@ export const TodoModel = {
 
   destroy(todoID, success, fail) {
     TodoModel.update({id: todoID, deleted: true}, success, fail);
+  },
+
+  destroyAll(todoList, success, fail) {
+    
   }
 };
