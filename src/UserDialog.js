@@ -4,7 +4,7 @@ export default class UserDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "signUp",
+      selected: "signIn",
       formData: {
         username: "",
         password: ""
@@ -145,27 +145,27 @@ export default class UserDialog extends Component {
             <label>
               <input
                 type="radio"
-                value="signUp"
-                checked={this.state.selected === "signUp"}
-                onChange={this.switch.bind(this)}
-              />
-              注册
-            </label>
-            <label>
-              <input
-                type="radio"
                 value="signIn"
                 checked={this.state.selected === "signIn"}
                 onChange={this.switch.bind(this)}
               />
               登录
             </label>
+            <label>
+              <input
+                type="radio"
+                value="signUp"
+                checked={this.state.selected === "signUp"}
+                onChange={this.switch.bind(this)}
+              />
+              注册
+            </label>
           </nav>
           <h2 className="dialog-header">
-            {this.state.selected === "signUp" ? "注册" : "登录"}
+            {this.state.selected === "signIn" ? "登录" : "注册"}
           </h2>
           <div className="panes">
-            {this.state.selected === "signUp" ? signUpForm : signInForm}
+            {this.state.selected === "signIn" ? signInForm : signUpForm}
           </div>
         </div>
       </div>
