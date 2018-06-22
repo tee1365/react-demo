@@ -1,15 +1,14 @@
 .todo-config-button {
   display: inline-block;
-  width: 80px;
-  height: 32px;
   font-size: 18px;
   position: relative;
   float: right;
   background-color: rgba(0, 0, 0, 0);
   border: none;
   cursor: pointer;
-  margin-right: -40px;
+  margin-right: -10px;
   margin-top: -60px;
+  outline: none;
 }
 
 .todo-config-list {

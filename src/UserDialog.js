@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {signUp, logIn, resetPassword} from "./leanCloud.js";
+import SignUpForm from "./SignUpForm.js";
+import LogInForm from "./LogInForm.js";
 export default class UserDialog extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +58,7 @@ export default class UserDialog extends Component {
       this.props.onLoadData.call(null);
     };
     let error = error => {
+      console.log("b");
       switch (error.code) {
         case 200:
           alert("没有提供用户名，或者用户名为空。");
@@ -113,97 +116,13 @@ export default class UserDialog extends Component {
     this.setState(stateCopy);
   }
 
-  changeToLogIn(e){
+  changeToLogIn(e) {
     let stateCopy = copyState(this.state);
     stateCopy.selected = "logIn";
     this.setState(stateCopy);
   }
 
   render() {
-    let logInForm = (
-      <form className="logIn" onSubmit={this.logIn.bind(this)}>
-        <div className="row">
-          <label>
-            用户名:
-            <p
-              className="UserDialog-prompt"
-              onClick={this.changeToSignUp.bind(this)}
-            >
-              没有账号？
-            </p>
-            <input
-              type="text"
-              value={this.state.formData.username}
-              onChange={this.changeFormData.bind(this, "username")}
-            />
-          </label>
-        </div>
-        <div className="row">
-          <label>
-            密码:
-            <p
-              className="UserDialog-prompt"
-              onClick={this.showForgetPassword.bind(this)}
-            >
-              忘记密码了？
-            </p>
-            <input
-              type="password"
-              value={this.state.formData.password}
-              onChange={this.changeFormData.bind(this, "password")}
-            />
-          </label>
-        </div>
-        <div className="row actions">
-          <button type="submit">提交</button>
-        </div>
-      </form>
-    );
-
-    let signUpForm = (
-      <form className="signUp" onSubmit={this.signUp.bind(this)}>
-        <div className="row">
-          <label>
-            用户名:{" "}
-            <p
-              className="UserDialog-prompt"
-              onClick={this.changeToLogIn.bind(this)}
-            >
-              已经有账号了？
-            </p>
-            <input
-              type="text"
-              value={this.state.formData.username}
-              onChange={this.changeFormData.bind(this, "username")}
-            />
-          </label>
-        </div>
-        <div className="row">
-          <label>
-            邮箱:
-            <input
-              type="text"
-              value={this.state.formData.email}
-              onChange={this.changeFormData.bind(this, "email")}
-            />
-          </label>
-        </div>
-        <div className="row">
-          <label>
-            密码:
-            <input
-              type="password"
-              value={this.state.formData.password}
-              onChange={this.changeFormData.bind(this, "password")}
-            />
-          </label>
-        </div>
-        <div className="row actions">
-          <button type="submit">提交</button>
-        </div>
-      </form>
-    );
-
     let logInOrSignUpForm = (
       <div className="logInOrSignUp">
         <nav onChange={this.switch.bind(this)}>
@@ -230,7 +149,22 @@ export default class UserDialog extends Component {
           {this.state.selected === "logIn" ? "登录" : "注册"}
         </h2>
         <div className="panes">
-          {this.state.selected === "logIn" ? logInForm : signUpForm}
+          {this.state.selected === "logIn" ? (
+            <LogInForm
+              formData={this.state.formData}
+              changeToSignUp={this.changeToSignUp.bind(this)}
+              changeFormData={this.changeFormData.bind(this)}
+              logIn={this.logIn.bind(this)}
+              showForgetPassword={this.showForgetPassword.bind(this)}
+            />
+          ) : (
+            <SignUpForm
+              formData={this.state.formData}
+              onSubmit={this.signUp.bind(this)}
+              onChange={this.changeFormData.bind(this)}
+              onClick={this.changeToLogIn.bind(this)}
+            />
+          )}
         </div>
       </div>
     );

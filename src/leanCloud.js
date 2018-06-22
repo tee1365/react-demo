@@ -53,7 +53,8 @@ export function logIn(username, password, success, error) {
       let user = getUserFromAVUser(loginedUser);
       success.call(null, user);
     },
-    function(error) {
+    error => {
+      console.log(error);
       error.call(null, error);
     }
   );
@@ -65,7 +66,7 @@ export function resetPassword(email, success, error) {
       success.call(null);
     },
     error => {
-      error.call(null);
+      error.call(null, error);
     }
   );
 }
