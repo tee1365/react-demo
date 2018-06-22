@@ -103,6 +103,8 @@ class App extends Component {
     }
   }
 
+  showDeletedList() {}
+
   render() {
     let todos = this.state.todoList
       .filter(function(list) {
@@ -113,8 +115,8 @@ class App extends Component {
           <li key={index} className="ToDoLi">
             <ToDoItem
               todo={item}
-              toggleItem={this.toggle.bind(this)} // 子组件onChange时调用
-              deleteItem={this.delete.bind(this)} // 子组件onClick时调用
+              toggle={this.toggle.bind(this)} // 子组件onChange时调用
+              delete={this.delete.bind(this)} // 子组件onClick时调用
             />
           </li>
         );
@@ -126,6 +128,7 @@ class App extends Component {
           {this.state.user.username || "我"}的待办列表
           {this.state.user.id ? (
             <TodoConfig
+              showDeletedList={this.showDeletedList.bind(this)}
               clearList={this.clearList.bind(this)}
               logOut={this.logOut.bind(this)}
             />
@@ -133,9 +136,9 @@ class App extends Component {
         </h1>
         <div className="inputBox">
           <ToDoBox
-            content={this.state.newTodo}
-            submitBox={this.addToDo.bind(this)} // 子组件onKeyPress时调用
-            changeBox={this.changeContent.bind(this)} // 子组件onChange时调用
+            newTodo={this.state.newTodo}
+            addToDo={this.addToDo.bind(this)} // 子组件onKeyPress时调用
+            changeContent={this.changeContent.bind(this)} // 子组件onChange时调用
           />
         </div>
         {todos}
@@ -143,7 +146,7 @@ class App extends Component {
           <UserDialog
             onSignUp={this.onSignUporlogIn.bind(this)}
             onlogIn={this.onSignUporlogIn.bind(this)}
-            onLoadData={this.initUserData.bind(this)}
+            initUserData={this.initUserData.bind(this)}
           />
         )}
       </div>

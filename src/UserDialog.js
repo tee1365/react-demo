@@ -58,7 +58,7 @@ export default class UserDialog extends Component {
     let {username, password} = this.state.formData;
     let success = user => {
       this.props.onlogIn.call(null, user);
-      this.props.onLoadData.call(null);
+      this.props.initUserData.call(null);
     };
     let fail = error => {
       switch (error.code) {
@@ -94,13 +94,13 @@ export default class UserDialog extends Component {
   resetPassword(e) {
     e.preventDefault();
     let email = this.state.formData.email;
-    let successfn = () => {
+    let success = () => {
       console.log("发送成功，请注意查看邮箱");
     };
-    let failfn = () => {
+    let fail = () => {
       console.log("发送失败，请重试");
     };
-    resetPassword(email, successfn, failfn);
+    resetPassword(email, success, fail);
   }
 
   showForgetPassword(e) {

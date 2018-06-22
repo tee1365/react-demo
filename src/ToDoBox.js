@@ -7,14 +7,14 @@ const ToDoBox = props => {
       <span>你想做点什么:</span>
       <input
         type="text"
-        value={props.content}
+        value={props.newTodo}
         placeholder="按Enter完成输入"
         onChange={e => {
-          props.changeBox(e); // 触发onChange时通过回调函数传给父组件
+          props.changeContent(e); // 触发onChange时通过回调函数传给父组件
         }}
         onKeyPress={e => {
           if (e.key === "Enter" && e.target.value.trim() !== "") {
-            props.submitBox(e);
+            props.addToDo(e);
           }
         }}
       />

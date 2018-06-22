@@ -6,6 +6,7 @@
   border-radius: 10px;
   margin: 3em;
   background: white;
+  min-width: 28em;
   min-height: 20em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.4);
   font-family: verdana;

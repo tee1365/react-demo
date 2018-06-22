@@ -19,7 +19,7 @@ class ToDoItem extends Component {
             type="checkbox"
             checked={this.props.todo.status === "completed"}
             onChange={e => {
-              this.props.toggleItem(e, this.props.todo);
+              this.props.toggle(e, this.props.todo);
             }}
           />
           <span className="ToDoItem-checkmark" />
@@ -39,7 +39,7 @@ class ToDoItem extends Component {
         <button
           className="ToDoItem-button"
           onClick={e => {
-            this.props.deleteItem(e, this.props.todo);
+            this.props.delete(e, this.props.todo);
           }}
         >
           删除

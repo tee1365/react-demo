@@ -20,7 +20,6 @@ export function signUp(username, password, email, success, fail) {
       success.call(null, user);
     },
     error => {
-      console.log(error);
       fail.call(null, error);
     }
   );
@@ -59,13 +58,13 @@ export function logIn(username, password, success, fail) {
   );
 }
 
-export function resetPassword(email, success, error) {
+export function resetPassword(email, success, fail) {
   AV.User.requestPasswordReset(email).then(
     success => {
       success.call(null);
     },
     error => {
-      error.call(null, error);
+      fail.call(null, error);
     }
   );
 }

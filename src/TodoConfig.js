@@ -36,7 +36,7 @@ class TodoConfig extends Component {
         {this.state.status === "" ? null : (
           <ul className="todo-config-list">
             <li onClick={this.props.clearList.bind(this)}>清空列表</li>
-            <li>恢复删除项</li>
+            <li onClick={this.props.showDeletedList.bind(this)}>恢复删除项</li>
             <li
               className="todo-config-logout"
               onClick={this.props.logOut.bind(this)}
