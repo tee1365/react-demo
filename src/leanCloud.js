@@ -47,15 +47,14 @@ export function logOut() {
   return undefined;
 }
 
-export function logIn(username, password, success, error) {
+export function logIn(username, password, success, fail) {
   AV.User.logIn(username, password).then(
     function(loginedUser) {
       let user = getUserFromAVUser(loginedUser);
       success.call(null, user);
     },
     error => {
-      console.log(error);
-      error.call(null, error);
+      error.call(this, error);
     }
   );
 }

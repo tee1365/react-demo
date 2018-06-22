@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {signUp, logIn, resetPassword} from "./leanCloud.js";
-import SignUpForm from "./SignUpForm.js";
-import LogInForm from "./LogInForm.js";
+import ResetPasswordForm from "./ResetPasswordForm.js";
+import LogInOrSignUpForm from "./LogInOrSignUpForm.js";
+
 export default class UserDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "logIn",
       forgotten: false,
       formData: {
         username: "",
@@ -14,12 +14,6 @@ export default class UserDialog extends Component {
         email: ""
       }
     };
-  }
-
-  switch(e) {
-    this.setState({
-      selected: e.target.value
-    });
   }
 
   signUp(e) {
@@ -57,8 +51,8 @@ export default class UserDialog extends Component {
       this.props.onlogIn.call(null, user);
       this.props.onLoadData.call(null);
     };
-    let error = error => {
-      console.log("b");
+    let fail = error => {
+      console.log(error.code);
       switch (error.code) {
         case 200:
           alert("没有提供用户名，或者用户名为空。");
@@ -77,7 +71,7 @@ export default class UserDialog extends Component {
           break;
       }
     };
-    logIn(username, password, success, error);
+    logIn(username, password, success, fail);
   }
 
   changeFormData(key, e) {
@@ -89,13 +83,13 @@ export default class UserDialog extends Component {
   resetPassword(e) {
     e.preventDefault();
     let email = this.state.formData.email;
-    let success = () => {
+    let successfn = () => {
       console.log("发送成功，请注意查看邮箱");
     };
-    let error = () => {
+    let failfn = () => {
       console.log("发送失败，请重试");
     };
-    resetPassword(email, success, error);
+    resetPassword(email, successfn, failfn);
   }
 
   showForgetPassword(e) {
@@ -110,96 +104,26 @@ export default class UserDialog extends Component {
     this.setState(stateCopy);
   }
 
-  changeToSignUp(e) {
-    let stateCopy = copyState(this.state);
-    stateCopy.selected = "signUp";
-    this.setState(stateCopy);
-  }
-
-  changeToLogIn(e) {
-    let stateCopy = copyState(this.state);
-    stateCopy.selected = "logIn";
-    this.setState(stateCopy);
-  }
-
   render() {
-    let logInOrSignUpForm = (
-      <div className="logInOrSignUp">
-        <nav onChange={this.switch.bind(this)}>
-          <label className="radio">
-            <input
-              type="radio"
-              value="logIn"
-              checked={this.state.selected === "logIn"}
-              onChange={this.switch.bind(this)}
-            />
-            登录
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              value="signUp"
-              checked={this.state.selected === "signUp"}
-              onChange={this.switch.bind(this)}
-            />
-            注册
-          </label>
-        </nav>
-        <h2 className="dialog-header">
-          {this.state.selected === "logIn" ? "登录" : "注册"}
-        </h2>
-        <div className="panes">
-          {this.state.selected === "logIn" ? (
-            <LogInForm
-              formData={this.state.formData}
-              changeToSignUp={this.changeToSignUp.bind(this)}
-              changeFormData={this.changeFormData.bind(this)}
-              logIn={this.logIn.bind(this)}
-              showForgetPassword={this.showForgetPassword.bind(this)}
-            />
-          ) : (
-            <SignUpForm
-              formData={this.state.formData}
-              onSubmit={this.signUp.bind(this)}
-              onChange={this.changeFormData.bind(this)}
-              onClick={this.changeToLogIn.bind(this)}
-            />
-          )}
-        </div>
-      </div>
-    );
-
-    let forgottenForm = (
-      <div className="resetPassword">
-        <h2 className="dialog-header">重置密码</h2>
-        <p
-          className="UserDialog-return"
-          onClick={this.returnToLogIn.bind(this)}
-        >
-          返回
-        </p>
-        <form className="panes" onSubmit={this.resetPassword.bind(this)}>
-          <div className="row">
-            <label>
-              请输入邮箱
-              <input
-                type="text"
-                value={this.state.formData.email}
-                onChange={this.changeFormData.bind(this, "email")}
-              />
-            </label>
-          </div>
-          <div className="row actions">
-            <button type="submit">发送邮件</button>
-          </div>
-        </form>
-      </div>
-    );
-
     return (
       <div className="UserDialog-Wrapper">
         <div className="UserDialog">
-          {this.state.forgotten === false ? logInOrSignUpForm : forgottenForm}
+          {this.state.forgotten === false ? (
+            <LogInOrSignUpForm
+              formData={this.state.formData}
+              changeFormData={this.changeFormData.bind(this)}
+              logIn={this.logIn.bind(this)}
+              showForgetPassword={this.showForgetPassword.bind(this)}
+              signUp={this.signUp.bind(this)}
+            />
+          ) : (
+            <ResetPasswordForm
+              formData={this.state.formData}
+              returnToLogIn={this.returnToLogIn.bind(this)}
+              resetPassword={this.resetPassword.bind(this)}
+              changeFormData={this.changeFormData.bind(this)}
+            />
+          )}
         </div>
       </div>
     );
