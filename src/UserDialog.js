@@ -22,10 +22,22 @@ export default class UserDialog extends Component {
     let success = user => {
       this.props.onSignUp.call(null, user);
     };
-    let error = error => {
+    let fail = error => {
       switch (error.code) {
+        case 200:
+          alert("没有提供用户名，或者用户名为空。");
+          break;
+        case 201:
+          alert("没有提供密码，或者密码为空。");
+          break;
         case 202:
           alert("用户名已经被占用。");
+          break;
+        case 203:
+          alert("电子邮箱地址已经被占用。");
+          break;
+        case 204:
+          alert("没有提供电子邮箱地址。");
           break;
         case 217:
           alert("无效的用户名，不允许空白用户名。");
@@ -33,15 +45,12 @@ export default class UserDialog extends Component {
         case 218:
           alert("无效的密码，不允许空白密码。");
           break;
-        case 219:
-          alert("登录失败次数超过限制，请稍候再试，或者通过忘记密码重设密码。");
-          break;
         default:
           alert(error);
           break;
       }
     };
-    signUp(username, password, email, success, error);
+    signUp(username, password, email, success, fail);
   }
 
   logIn(e) {
@@ -52,7 +61,6 @@ export default class UserDialog extends Component {
       this.props.onLoadData.call(null);
     };
     let fail = error => {
-      console.log(error.code);
       switch (error.code) {
         case 200:
           alert("没有提供用户名，或者用户名为空。");
@@ -65,6 +73,9 @@ export default class UserDialog extends Component {
           break;
         case 211:
           alert("找不到用户。");
+          break;
+        case 219:
+          alert("登录失败次数超过限制，请稍候再试，或者通过忘记密码重设密码。");
           break;
         default:
           alert(error);

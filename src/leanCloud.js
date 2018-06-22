@@ -9,21 +9,21 @@ AV.init({
 
 export default AV;
 
-export function signUp(username, password, email, success, error) {
+export function signUp(username, password, email, success, fail) {
   let user = new AV.User();
   user.setUsername(username);
   user.setPassword(password);
   user.setEmail(email);
   user.signUp().then(
-    function(loginedUser) {
+    loginedUser => {
       let user = getUserFromAVUser(loginedUser);
       success.call(null, user);
     },
-    function(error) {
-      error.call(null, error);
+    error => {
+      console.log(error);
+      fail.call(null, error);
     }
   );
-  return undefined;
 }
 
 let getUserFromAVUser = AVUser => {
@@ -49,12 +49,12 @@ export function logOut() {
 
 export function logIn(username, password, success, fail) {
   AV.User.logIn(username, password).then(
-    function(loginedUser) {
+    loginedUser => {
       let user = getUserFromAVUser(loginedUser);
       success.call(null, user);
     },
     error => {
-      error.call(this, error);
+      fail.call(null, error);
     }
   );
 }
