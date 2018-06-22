@@ -5,24 +5,35 @@ class TodoConfig extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: "hide"
+      status: ""
     };
+    let clickfn;
+  }
+
+  componentDidMount() {
+    let button = document.querySelector(".todo-config-button");
+    this.clickfn = document.addEventListener("click", e => {
+      if (e.target === button) {
+        let stateCopy = copyState(this.state);
+        stateCopy.status = "show";
+        this.setState(stateCopy);
+      } else {
+        let stateCopy = copyState(this.state);
+        stateCopy.status = "";
+        this.setState(stateCopy);
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.clickfn);
   }
 
   render() {
     return (
       <div className="todo-config">
-        <button
-          className="todo-config-button"
-          onClick={e => {
-            let stateCopy = copyState(this.state);
-            stateCopy.status = stateCopy.status === "hide" ? "" : "hide";
-            this.setState(stateCopy);
-          }}
-        >
-          |||
-        </button>
-        {this.state.status === "hide" ? (
+        <button className="todo-config-button">|||</button>
+        {this.state.status === "" ? null : (
           <ul className="todo-config-list">
             <li onClick={this.props.clearList.bind(this)}>清空列表</li>
             <li
@@ -32,7 +43,7 @@ class TodoConfig extends Component {
               登出
             </li>
           </ul>
-        ) : null}
+        )}
       </div>
     );
   }

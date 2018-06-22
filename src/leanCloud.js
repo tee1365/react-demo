@@ -9,17 +9,18 @@ AV.init({
 
 export default AV;
 
-export function signUp(username, password, successFn, errorFn) {
+export function signUp(username, password, email, success, error) {
   let user = new AV.User();
   user.setUsername(username);
   user.setPassword(password);
+  user.setEmail(email);
   user.signUp().then(
     function(loginedUser) {
       let user = getUserFromAVUser(loginedUser);
-      successFn.call(null, user);
+      success.call(null, user);
     },
     function(error) {
-      errorFn.call(null, error);
+      error.call(null, error);
     }
   );
   return undefined;
@@ -46,14 +47,25 @@ export function logOut() {
   return undefined;
 }
 
-export function signIn(username, password, successFn, errorFn) {
+export function logIn(username, password, success, error) {
   AV.User.logIn(username, password).then(
     function(loginedUser) {
       let user = getUserFromAVUser(loginedUser);
-      successFn.call(null, user);
+      success.call(null, user);
     },
     function(error) {
-      errorFn.call(null, error);
+      error.call(null, error);
+    }
+  );
+}
+
+export function resetPassword(email, success, error) {
+  AV.User.requestPasswordReset(email).then(
+    success => {
+      success.call(null);
+    },
+    error => {
+      error.call(null);
     }
   );
 }
@@ -115,9 +127,5 @@ export const TodoModel = {
 
   destroy(todoID, success, fail) {
     TodoModel.update({id: todoID, deleted: true}, success, fail);
-  },
-
-  destroyAll(todoList, success, fail) {
-    
   }
 };

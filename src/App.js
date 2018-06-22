@@ -58,8 +58,8 @@ class App extends Component {
         {todos}
         {this.state.user.id ? null : (
           <UserDialog
-            onSignUp={this.onSignUporSignIn.bind(this)}
-            onSignIn={this.onSignUporSignIn.bind(this)}
+            onSignUp={this.onSignUporlogIn.bind(this)}
+            onlogIn={this.onSignUporlogIn.bind(this)}
             onLoadData={this.initUserData.bind(this)}
           />
         )}
@@ -108,7 +108,7 @@ class App extends Component {
     );
   }
 
-  onSignUporSignIn(user) {
+  onSignUporlogIn(user) {
     let stateCopy = copyState(this.state);
     stateCopy.user = user;
     this.setState(stateCopy);

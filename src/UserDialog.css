@@ -20,30 +20,25 @@
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.35);
 }
 
-.UserDialog > nav label {
+.UserDialog nav label {
   float: right;
   margin-right: 2em;
-  margin-top: 20px;
   cursor: pointer;
   text-decoration: underline;
-  color: #aaa;
+  color: #666;
 }
 
 .UserDialog input {
   display: none;
 }
 
-.UserDialog > .panes {
+.UserDialog .panes {
   padding: 0 1em 1em;
 }
 
-.UserDialog form > .row {
+.UserDialog form .row {
   display: flex;
   padding: 0.3em 0;
-}
-
-.UserDialog .row label {
-  margin-bottom: 0.5em;
 }
 
 .UserDialog .row input {
@@ -52,9 +47,9 @@
 }
 
 .UserDialog .actions button {
+  margin-top: 1em;
   display: inline-block;
-  height: 24px;
-  width: 60px;
+  padding: 10px 15px;
   border: none;
   background-color: #ddd;
   cursor: pointer;
@@ -66,4 +61,24 @@
 
 .UserDialog .dialog-header {
   margin: 20px 0 30px 14px;
+}
+
+.UserDialog-prompt {
+  text-decoration: underline;
+  cursor: pointer;
+  float: right;
+  color: #666;
+}
+
+.resetPassword {
+  position: relative;
+}
+
+.UserDialog-return {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #666;
 }

@@ -36,21 +36,24 @@ export在导出时需要使用花括号，并在花括号内写出想要导出�
 export default 就是在导出时把名字定为default,在引用时则是import {default as xxx} from xxx。这种情况下可以不使用花括号，但是因为default的名字只有一个，所以一个模块中只能有一个export default。
 
 ## 知识点2
+
 input 里的文字用 input.value 就可以获得了，为什么还要用 newTodo 来容纳呢？  
 
 用newTodo容纳可以把值保存在父组件中，方便同todoList一起修改。
+
 ## 知识点3
+
 为什么 return 时要加圆括号？
 
 在return多行的情况下需要加括号，加括号是因为JS会自动给行末添加分号，如果不加括号就会变成return;
 
-
-
 待办列表功能：
 忘记密码
-清空列表
 表格样式添加
 恢复被删除项
 详细内容
 截止日期
 拖动改变位置
+
+问题:
+登出后报warning
