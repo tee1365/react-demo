@@ -6,6 +6,14 @@
 }
 
 .ToDoItem:hover {
+  background-color: lightblue;
+}
+
+.ToDoItem-checked {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
   background-color: #19c2c7;
 }
 
@@ -17,6 +25,16 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: left;
+}
+.ToDoItem-title-checked {
+  display: inline-block;
+  margin: 1em 0.5em;
+  width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  text-decoration: line-through;
 }
 
 .ToDoItem-button {

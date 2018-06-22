@@ -4,7 +4,11 @@ class ToDoItem extends Component {
   render() {
     return (
       <div
-        className="ToDoItem"
+        className={
+          this.props.todo.status === "completed"
+            ? "ToDoItem-checked"
+            : "ToDoItem"
+        }
         ref={el => {
           this._item = el;
         }}
@@ -21,7 +25,11 @@ class ToDoItem extends Component {
           <span className="ToDoItem-checkmark" />
         </label>
         <span
-          className="ToDoItem-title"
+          className={
+            this.props.todo.status === "completed"
+              ? "ToDoItem-title-checked"
+              : "ToDoItem-title"
+          }
           ref={el => {
             this._title = el;
           }}
@@ -34,7 +42,7 @@ class ToDoItem extends Component {
             this.props.deleteItem(e, this.props.todo);
           }}
         >
-          delete
+          删除
         </button>
       </div>
     );
