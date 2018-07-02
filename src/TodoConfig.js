@@ -12,15 +12,10 @@ class TodoConfig extends Component {
   componentDidMount() {
     let button = document.querySelector(".todo-config-button");
     this.clickfn = e => {
-      if (e.target === button && this.state.status === "") {
-        let stateCopy = copyState(this.state);
-        stateCopy.status = "show";
-        this.setState(stateCopy);
-      } else {
-        let stateCopy = copyState(this.state);
-        stateCopy.status = "";
-        this.setState(stateCopy);
-      }
+      let stateCopy = copyState(this.state);
+      stateCopy.status =
+        e.target === button && this.state.status === "" ? "show" : "";
+      this.setState(stateCopy);
     };
     document.addEventListener("click", this.clickfn);
   }
@@ -36,7 +31,9 @@ class TodoConfig extends Component {
         {this.state.status === "" ? null : (
           <ul className="todo-config-list">
             <li onClick={this.props.clearList.bind(this)}>清空列表</li>
-            <li onClick={this.props.showDeletedList.bind(this)}>恢复删除项</li>
+            <li onClick={this.props.toggleDeletedList.bind(this)}>
+              恢复删除项
+            </li>
             <li
               className="todo-config-logout"
               onClick={this.props.logOut.bind(this)}

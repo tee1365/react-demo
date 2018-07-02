@@ -6,12 +6,10 @@ class ToDoItem extends Component {
       <div
         className={
           this.props.todo.status === "completed"
-            ? "ToDoItem-checked"
+            ? "ToDoItem ToDoItem-checked"
             : "ToDoItem"
         }
-        ref={el => {
-          this._item = el;
-        }}
+        onClick={this.props.showDetails}
       >
         <label className="ToDoItem-container">
           <input
@@ -30,9 +28,6 @@ class ToDoItem extends Component {
               ? "ToDoItem-title-checked"
               : "ToDoItem-title"
           }
-          ref={el => {
-            this._title = el;
-          }}
         >
           {this.props.todo.title}
         </span>

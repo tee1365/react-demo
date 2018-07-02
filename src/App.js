@@ -4,6 +4,8 @@ import ToDoItem from "./ToDoItem.js";
 import UserDialog from "./UserDialog.js";
 import {getCurrentUser, logOut, TodoModel} from "./leanCloud.js";
 import TodoConfig from "./TodoConfig.js";
+import DeletedList from "./DeletedList.js";
+
 import "./App.css";
 import "normalize.css";
 import "./reset.css";
@@ -15,7 +17,8 @@ class App extends Component {
     this.state = {
       user: getCurrentUser() || {},
       newTodo: "",
-      todoList: []
+      todoList: [],
+      showDeleted: false
     };
     this.initUserData();
   }
@@ -87,8 +90,15 @@ class App extends Component {
   }
 
   delete(e, todo) {
-    TodoModel.destroy(todo.id, () => {
+    TodoModel.delete(todo.id, () => {
       todo.deleted = true;
+      this.setState(this.state);
+    });
+  }
+
+  undoDelete(e, todo) {
+    TodoModel.undoDelete(todo.id, () => {
+      todo.deleted = false;
       this.setState(this.state);
     });
   }
@@ -96,14 +106,23 @@ class App extends Component {
   clearList() {
     let stateCopy = copyState(this.state);
     for (let i = 0; i < stateCopy.todoList.length; i++) {
-      TodoModel.destroy(stateCopy.todoList[i].id, () => {
+      TodoModel.delete(stateCopy.todoList[i].id, () => {
         stateCopy.todoList[i].deleted = true;
         this.setState(stateCopy);
       });
     }
   }
 
-  showDeletedList() {}
+  toggleDeletedList() {
+    let stateCopy = copyState(this.state);
+    stateCopy.showDeleted = stateCopy.showDeleted === false ? true : false;
+    this.setState(stateCopy);
+  }
+
+  showDetails(){
+    let item = document.querySelector(".ToDoItem")
+    
+  }
 
   render() {
     let todos = this.state.todoList
@@ -115,6 +134,7 @@ class App extends Component {
           <li key={index} className="ToDoLi">
             <ToDoItem
               todo={item}
+              showDetails={this.showDetails.bind(this)}
               toggle={this.toggle.bind(this)} // 子组件onChange时调用
               delete={this.delete.bind(this)} // 子组件onClick时调用
             />
@@ -128,12 +148,20 @@ class App extends Component {
           {this.state.user.username || "我"}的待办列表
           {this.state.user.id ? (
             <TodoConfig
-              showDeletedList={this.showDeletedList.bind(this)}
+              toggleDeletedList={this.toggleDeletedList.bind(this)}
               clearList={this.clearList.bind(this)}
               logOut={this.logOut.bind(this)}
             />
           ) : null}
         </h1>
+        {this.state.showDeleted ? (
+          <DeletedList
+            user={this.state.user}
+            toggleDeletedList={this.toggleDeletedList.bind(this)}
+            todoList={this.state.todoList}
+            undoDelete={this.undoDelete.bind(this)}
+          />
+        ) : null}
         <div className="inputBox">
           <ToDoBox
             newTodo={this.state.newTodo}

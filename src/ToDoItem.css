@@ -6,15 +6,11 @@
 }
 
 .ToDoItem:hover {
-  background-color: lightblue;
+  background-color: #19c2c7;
 }
 
 .ToDoItem-checked {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
-  background-color: #19c2c7;
+  background-color: lightblue;
 }
 
 .ToDoItem-title {

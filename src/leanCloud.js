@@ -94,7 +94,6 @@ export const TodoModel = {
 
   getByUser(user, success, fail) {
     let query = new AV.Query("Todo");
-    query.equalTo("deleted", false);
     query.find().then(
       response => {
         let array = response.map(t => {
@@ -124,7 +123,11 @@ export const TodoModel = {
     );
   },
 
-  destroy(todoID, success, fail) {
+  delete(todoID, success, fail) {
     TodoModel.update({id: todoID, deleted: true}, success, fail);
+  },
+
+  undoDelete(todoID, success, fail) {
+    TodoModel.update({id: todoID, deleted: false}, success, fail);
   }
 };
