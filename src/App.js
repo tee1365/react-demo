@@ -119,9 +119,8 @@ class App extends Component {
     this.setState(stateCopy);
   }
 
-  showDetails(){
-    let item = document.querySelector(".ToDoItem")
-    
+  showDetails() {
+    let item = document.querySelector(".ToDoItem");
   }
 
   render() {
@@ -143,7 +142,7 @@ class App extends Component {
       });
 
     return (
-      <div className="App">
+      <div className="App no-select">
         <h1>
           {this.state.user.username || "我"}的待办列表
           {this.state.user.id ? (
@@ -169,7 +168,7 @@ class App extends Component {
             changeContent={this.changeContent.bind(this)} // 子组件onChange时调用
           />
         </div>
-        {todos}
+        <div className="listScrollBox">{todos}</div>
         {this.state.user.id ? null : (
           <UserDialog
             onSignUp={this.onSignUporlogIn.bind(this)}

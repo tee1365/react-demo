@@ -4,8 +4,8 @@
   border-radius: 5px;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: -1px;
+  transform: translate(-100%, -50%);
   background: white;
   min-height: 32em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.35);
@@ -31,7 +31,10 @@
 
 .deletedList > .search input {
   width: 10em;
-  margin-bottom: 40px;
+  margin: 30px 0;
+  line-height: 1.8;
+  border-radius: 2px;
+  border: 1px solid #999;
 }
 
 .deletedList > ul > li {
@@ -40,6 +43,13 @@
   align-items: center;
   padding: 10px 0 10px 20px;
   border-bottom: 1px solid #aaa;
+}
+
+.deletedList > ul > li span {
+  width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .deletedList > ul > li:hover {
@@ -58,4 +68,13 @@
 
 .completeList {
   background-color: lightblue;
+}
+.completeList span {
+  text-decoration: line-through;
+}
+
+.deletedListScrollBox {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 20em;
 }

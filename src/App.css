@@ -1,15 +1,13 @@
 .App {
   width: 32em;
   position: relative;
-  color: #333;
   border: 1px solid #aaa;
   border-radius: 10px;
-  margin: 3em;
   background: white;
-  min-width: 28em;
-  min-height: 20em;
+  width: 30em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.4);
   font-family: verdana;
+  height: 40em;
 }
 
 .App h1 {
@@ -19,4 +17,14 @@
   background-size: 100%;
   color: #000;
   font-size: 24px;
+}
+
+.no-select {
+  user-select: none;
+}
+
+.listScrollBox {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(100% - 250px);
 }
