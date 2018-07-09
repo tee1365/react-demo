@@ -119,10 +119,6 @@ class App extends Component {
     this.setState(stateCopy);
   }
 
-  showDetails() {
-    let item = document.querySelector(".ToDoItem");
-  }
-
   render() {
     let todos = this.state.todoList
       .filter(function(list) {
@@ -133,7 +129,6 @@ class App extends Component {
           <li key={index} className="ToDoLi">
             <ToDoItem
               todo={item}
-              showDetails={this.showDetails.bind(this)}
               toggle={this.toggle.bind(this)} // 子组件onChange时调用
               delete={this.delete.bind(this)} // 子组件onClick时调用
             />

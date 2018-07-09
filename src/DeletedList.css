@@ -1,13 +1,23 @@
+.deletedList-Wrapper {
+  /*全屏*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  /*内容居中*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 .deletedList {
   width: 20em;
+  min-height: 32em;
   border: 1px solid #aaa;
   border-radius: 5px;
-  position: absolute;
-  top: 50%;
-  left: -1px;
-  transform: translate(-100%, -50%);
   background: white;
-  min-height: 32em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.35);
 }
 

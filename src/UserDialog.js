@@ -19,6 +19,25 @@ export default class UserDialog extends Component {
   signUp(e) {
     e.preventDefault();
     let {username, password, email} = this.state.formData;
+    if (
+      password.includes(" ") ||
+      username.includes(" ")
+    ) {
+      alert("请不要在用户名或密码中使用空格");
+      return;
+    }
+    if (password.length === 0 || username.length === 0 || email.length === 0) {
+      alert("请先填写所有项目");
+      return;
+    }
+    if (username.length < 6) {
+      alert("用户名长度需要大于6位");
+      return;
+    }
+    if (password.length < 8) {
+      alert("密码长度需大于8位");
+      return;
+    }
     let success = user => {
       this.props.onSignUp.call(null, user);
     };
@@ -32,6 +51,9 @@ export default class UserDialog extends Component {
           break;
         case 202:
           alert("用户名已经被占用。");
+          break;
+        case 125:
+          alert("邮箱地址无效");
           break;
         case 203:
           alert("电子邮箱地址已经被占用。");

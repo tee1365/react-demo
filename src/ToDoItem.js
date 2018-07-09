@@ -10,7 +10,6 @@ class ToDoItem extends Component {
             ? "ToDoItem ToDoItem-checked"
             : "ToDoItem"
         }
-        onClick={this.props.showDetails}
       >
         <label className="ToDoItem-container">
           <input
@@ -44,4 +43,5 @@ class ToDoItem extends Component {
     );
   }
 }
+
 export default ToDoItem;

@@ -1,13 +1,14 @@
 .App {
   width: 32em;
+  height: 40em;
   position: relative;
   border: 1px solid #aaa;
   border-radius: 10px;
+  margin-top: 2em;
   background: white;
   width: 30em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.4);
   font-family: verdana;
-  height: 40em;
 }
 
 .App h1 {

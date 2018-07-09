@@ -49,16 +49,21 @@ export default class DeletedList extends Component {
     });
 
     return (
-      <div className="deletedList">
-        <h2>被删除项列表</h2>
-        <p className="return" onClick={this.props.toggleDeletedList.bind(this)}>
-          返回
-        </p>
-        <label className="search">
-          <span>search:</span>
-          <input type="text" onChange={this.handleInput} />
-        </label>
-        <ul className="deletedListScrollBox">{deletedListElement}</ul>
+      <div className="deletedList-Wrapper">
+        <div className="deletedList">
+          <h2>被删除项列表</h2>
+          <p
+            className="return"
+            onClick={this.props.toggleDeletedList.bind(this)}
+          >
+            返回
+          </p>
+          <label className="search">
+            <span>search:</span>
+            <input type="text" onChange={this.handleInput} />
+          </label>
+          <ul className="deletedListScrollBox">{deletedListElement}</ul>
+        </div>
       </div>
     );
   }
