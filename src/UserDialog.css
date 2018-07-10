@@ -1,85 +1,11 @@
 .UserDialog-Wrapper {
-  /*全屏*/
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  /*内容居中*/
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
-}
-
-.UserDialog {
-  border: 1px solid;
-  border-radius: 4px;
-  min-width: 20em;
-  background: white;
-  border: 1px solid #aaa;
-  box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.35);
-}
-
-.UserDialog nav label {
-  float: right;
-  margin-right: 2em;
-  cursor: pointer;
-  text-decoration: underline;
-  color: #666;
-}
-
-.UserDialog input {
-  display: none;
-}
-
-.UserDialog .panes {
-  padding: 0 1em 1em;
-}
-
-.UserDialog form .row {
-  display: flex;
-  padding: 0.3em 0;
-}
-
-.UserDialog .row input {
-  margin-top: 0.5em;
-  display: block;
-}
-
-.UserDialog .actions button {
-  margin-top: 1em;
-  display: inline-block;
-  padding: 10px 15px;
-  border: none;
-  background-color: #ddd;
-  cursor: pointer;
-}
-
-.UserDialog .actions button:hover {
-  background-color: #bbb;
-}
-
-.UserDialog .dialog-header {
-  margin: 20px 0 30px 14px;
-}
-
-.UserDialog-prompt {
-  text-decoration: underline;
-  cursor: pointer;
-  float: right;
-  color: #666;
-}
-
-.resetPassword {
-  position: relative;
-}
-
-.UserDialog-return {
-  position: absolute;
-  top: 0;
-  right: 20px;
-  text-decoration: underline;
-  cursor: pointer;
-  color: #666;
 }

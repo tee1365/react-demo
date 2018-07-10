@@ -1,49 +1,58 @@
-import React, {Component} from "react";
+import React from "react";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import {withStyles} from "@material-ui/core/styles";
 
-export default class SignUpForm extends Component {
-  render() {
-    return (
-      <form className="signUp" onSubmit={this.props.signUp.bind(this)}>
-        <div className="row">
-          <label>
-            用户名:
-            <p
-              className="UserDialog-prompt"
-              onClick={this.props.changeToLogIn.bind(this)}
-            >
-              已经有账号了？
-            </p>
-            <input
-              type="text"
-              value={this.props.formData.username}
-              onChange={this.props.changeFormData.bind(null, "username")}
-            />
-          </label>
-        </div>
-        <div className="row">
-          <label>
-            邮箱:
-            <input
-              type="text"
-              value={this.props.formData.email}
-              onChange={this.props.changeFormData.bind(null, "email")}
-            />
-          </label>
-        </div>
-        <div className="row">
-          <label>
-            密码:
-            <input
-              type="password"
-              value={this.props.formData.password}
-              onChange={this.props.changeFormData.bind(null, "password")}
-            />
-          </label>
-        </div>
-        <div className="row actions">
-          <button type="submit">提交</button>
-        </div>
-      </form>
-    );
+const styles = {
+  form: {
+    width: "16em"
+  },
+  username: {
+    marginBottom: "10px"
+  },
+  email: {
+    marginBottom: "10px"
+  },
+  password: {
+    marginBottom: "30px"
   }
+};
+
+function SignUpForm(props) {
+  return (
+    <form className={props.classes.form} onSubmit={props.signUp.bind(this)}>
+      <TextField
+        id="username"
+        label="用户名"
+        fullWidth
+        placeholder="不少于6位"
+        className={props.classes.username}
+        value={props.formData.username}
+        onChange={props.changeFormData.bind(this, "username")}
+      />
+      <TextField
+        id="email"
+        label="邮箱"
+        fullWidth
+        className={props.classes.email}
+        value={props.formData.email}
+        onChange={props.changeFormData.bind(this, "email")}
+      />
+      <TextField
+        id="password"
+        label="密码"
+        type="password"
+        placeholder="不少于8位"
+        fullWidth
+        className={props.classes.password}
+        value={props.formData.password}
+        onChange={props.changeFormData.bind(this, "password")}
+      />
+      <Button type="submit" fullWidth>
+        提交
+      </Button>
+    </form>
+  );
 }
+
+export default withStyles(styles)(SignUpForm);

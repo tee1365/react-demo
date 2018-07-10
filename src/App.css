@@ -9,6 +9,7 @@
   width: 30em;
   box-shadow: 0 0 1em hsla(0, 0%, 0%, 0.4);
   font-family: verdana;
+  user-select: none;
 }
 
 .App h1 {
@@ -18,10 +19,6 @@
   background-size: 100%;
   color: #000;
   font-size: 24px;
-}
-
-.no-select {
-  user-select: none;
 }
 
 .listScrollBox {

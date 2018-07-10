@@ -1,15 +1,36 @@
 import React, {Component} from "react";
-import ToDoBox from "./ToDoBox.js";
+import SearchBox from "./SearchBox.js";
 import ToDoItem from "./ToDoItem.js";
 import UserDialog from "./UserDialog.js";
 import {getCurrentUser, logOut, TodoModel} from "./leanCloud.js";
 import TodoConfig from "./TodoConfig.js";
 import DeletedList from "./DeletedList.js";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import {withStyles} from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
 
-import "./App.css";
 import "normalize.css";
-import "./reset.css";
 import "./UserDialog.css";
+
+const styles = {
+  app: {
+    width: "32em",
+    height: "40em",
+    position: "relative",
+    marginTop: "2em",
+    userSelect: "none"
+  },
+  header: {
+    margin: "20px"
+  },
+  scroll: {
+    overflowX: "hidden",
+    overflowY: "auto",
+    height: "calc(100% - 250px)"
+  }
+};
 
 class App extends Component {
   constructor(props) {
@@ -126,52 +147,50 @@ class App extends Component {
       })
       .map((item, index) => {
         return (
-          <li key={index} className="ToDoLi">
-            <ToDoItem
-              todo={item}
-              toggle={this.toggle.bind(this)} // 子组件onChange时调用
-              delete={this.delete.bind(this)} // 子组件onClick时调用
-            />
-          </li>
+          <ToDoItem
+            key={index}
+            todo={item}
+            toggle={this.toggle.bind(this)} // 子组件onChange时调用
+            delete={this.delete.bind(this)} // 子组件onClick时调用
+          />
         );
       });
 
     return (
-      <div className="App no-select">
-        <h1>
-          {this.state.user.username || "我"}的待办列表
-          {this.state.user.id ? (
+      <Card className={this.props.classes.app}>
+        <CardContent>
+          <Typography variant="display1" className={this.props.classes.header}>
+            {this.state.user.username || "我"}的待办列表
             <TodoConfig
               toggleDeletedList={this.toggleDeletedList.bind(this)}
               clearList={this.clearList.bind(this)}
               logOut={this.logOut.bind(this)}
             />
+          </Typography>
+          {this.state.showDeleted ? (
+            <DeletedList
+              user={this.state.user}
+              toggleDeletedList={this.toggleDeletedList.bind(this)}
+              todoList={this.state.todoList}
+              undoDelete={this.undoDelete.bind(this)}
+            />
           ) : null}
-        </h1>
-        {this.state.showDeleted ? (
-          <DeletedList
-            user={this.state.user}
-            toggleDeletedList={this.toggleDeletedList.bind(this)}
-            todoList={this.state.todoList}
-            undoDelete={this.undoDelete.bind(this)}
-          />
-        ) : null}
-        <div className="inputBox">
-          <ToDoBox
+          <SearchBox
+            className={this.props.classes.search}
             newTodo={this.state.newTodo}
-            addToDo={this.addToDo.bind(this)} // 子组件onKeyPress时调用
-            changeContent={this.changeContent.bind(this)} // 子组件onChange时调用
+            addToDo={this.addToDo.bind(this)}
+            changeContent={this.changeContent.bind(this)}
           />
-        </div>
-        <div className="listScrollBox">{todos}</div>
-        {this.state.user.id ? null : (
-          <UserDialog
-            onSignUp={this.onSignUporlogIn.bind(this)}
-            onlogIn={this.onSignUporlogIn.bind(this)}
-            initUserData={this.initUserData.bind(this)}
-          />
-        )}
-      </div>
+          <List className={this.props.classes.scroll}>{todos}</List>
+          {this.state.user.id ? null : (
+            <UserDialog
+              onSignUp={this.onSignUporlogIn.bind(this)}
+              onlogIn={this.onSignUporlogIn.bind(this)}
+              initUserData={this.initUserData.bind(this)}
+            />
+          )}
+        </CardContent>
+      </Card>
     );
   }
 }
@@ -180,4 +199,4 @@ function copyState(state) {
   return JSON.parse(JSON.stringify(state));
 }
 
-export default App;
+export default withStyles(styles)(App);

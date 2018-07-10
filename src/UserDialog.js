@@ -7,6 +7,7 @@ export default class UserDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selected: "logIn",
       forgotten: false,
       formData: {
         username: "",
@@ -19,10 +20,7 @@ export default class UserDialog extends Component {
   signUp(e) {
     e.preventDefault();
     let {username, password, email} = this.state.formData;
-    if (
-      password.includes(" ") ||
-      username.includes(" ")
-    ) {
+    if (password.includes(" ") || username.includes(" ")) {
       alert("请不要在用户名或密码中使用空格");
       return;
     }
@@ -113,6 +111,12 @@ export default class UserDialog extends Component {
     this.setState(stateCopy);
   }
 
+  switch(e) {
+    this.setState({
+      selected: this.state.selected === "logIn" ? "signUp" : "logIn"
+    });
+  }
+
   resetPassword(e) {
     e.preventDefault();
     let email = this.state.formData.email;
@@ -140,24 +144,24 @@ export default class UserDialog extends Component {
   render() {
     return (
       <div className="UserDialog-Wrapper">
-        <div className="UserDialog">
-          {this.state.forgotten === false ? (
-            <LogInOrSignUpForm
-              formData={this.state.formData}
-              changeFormData={this.changeFormData.bind(this)}
-              logIn={this.logIn.bind(this)}
-              showForgetPassword={this.showForgetPassword.bind(this)}
-              signUp={this.signUp.bind(this)}
-            />
-          ) : (
-            <ResetPasswordForm
-              formData={this.state.formData}
-              returnToLogIn={this.returnToLogIn.bind(this)}
-              resetPassword={this.resetPassword.bind(this)}
-              changeFormData={this.changeFormData.bind(this)}
-            />
-          )}
-        </div>
+        {this.state.forgotten === false ? (
+          <LogInOrSignUpForm
+            selected={this.state.selected}
+            formData={this.state.formData}
+            changeFormData={this.changeFormData.bind(this)}
+            logIn={this.logIn.bind(this)}
+            showForgetPassword={this.showForgetPassword.bind(this)}
+            signUp={this.signUp.bind(this)}
+            switch={this.switch.bind(this)}
+          />
+        ) : (
+          <ResetPasswordForm
+            formData={this.state.formData}
+            returnToLogIn={this.returnToLogIn.bind(this)}
+            resetPassword={this.resetPassword.bind(this)}
+            changeFormData={this.changeFormData.bind(this)}
+          />
+        )}
       </div>
     );
   }
