@@ -2,8 +2,19 @@ import React, {Component} from "react";
 import {signUp, logIn, resetPassword} from "./leanCloud.js";
 import ResetPasswordForm from "./ResetPasswordForm.js";
 import LogInOrSignUpForm from "./LogInOrSignUpForm.js";
+import Modal from "@material-ui/core/Modal";
+import {withStyles} from "@material-ui/core/styles";
 
-export default class UserDialog extends Component {
+const styles = {
+  form: {
+    width: "24em",
+    position: "absulute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%,-50%)"
+  }
+};
+class UserDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +24,8 @@ export default class UserDialog extends Component {
         username: "",
         password: "",
         email: ""
-      }
+      },
+      open: true
     };
   }
 
@@ -143,7 +155,7 @@ export default class UserDialog extends Component {
 
   render() {
     return (
-      <div className="UserDialog-Wrapper">
+      <Modal open={this.state.open}>
         {this.state.forgotten === false ? (
           <LogInOrSignUpForm
             selected={this.state.selected}
@@ -162,7 +174,7 @@ export default class UserDialog extends Component {
             changeFormData={this.changeFormData.bind(this)}
           />
         )}
-      </div>
+      </Modal>
     );
   }
 }
@@ -170,3 +182,5 @@ export default class UserDialog extends Component {
 function copyState(state) {
   return JSON.parse(JSON.stringify(state));
 }
+
+export default withStyles(styles)(UserDialog);

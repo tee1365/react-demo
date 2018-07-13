@@ -8,7 +8,10 @@ import {withStyles} from "@material-ui/core/styles";
 
 const styles = {
   form: {
-    width: "16em"
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%,-50%)"
   },
   return: {
     float: "right"
@@ -24,7 +27,7 @@ const styles = {
 
 function ResetPasswordForm(props) {
   return (
-    <Card>
+    <Card className={props.classes.form}>
       <CardContent>
         <Typography variant="title" className={props.classes.title}>
           重置密码
@@ -36,10 +39,7 @@ function ResetPasswordForm(props) {
             返回
           </Button>
         </Typography>
-        <form
-          className={props.classes.form}
-          onSubmit={props.resetPassword.bind(this)}
-        >
+        <form onSubmit={props.resetPassword.bind(this)}>
           <TextField
             label="请输入邮箱"
             fullWidth

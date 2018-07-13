@@ -48,7 +48,7 @@ function SignUpForm(props) {
         value={props.formData.password}
         onChange={props.changeFormData.bind(this, "password")}
       />
-      <Button type="submit" fullWidth>
+      <Button type="submit" fullWidth color="primary">
         提交
       </Button>
     </form>

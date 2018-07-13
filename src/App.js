@@ -4,7 +4,6 @@ import ToDoItem from "./ToDoItem.js";
 import UserDialog from "./UserDialog.js";
 import {getCurrentUser, logOut, TodoModel} from "./leanCloud.js";
 import TodoConfig from "./TodoConfig.js";
-import DeletedList from "./DeletedList.js";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +11,6 @@ import {withStyles} from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 
 import "normalize.css";
-import "./UserDialog.css";
 
 const styles = {
   app: {
@@ -28,7 +26,7 @@ const styles = {
   scroll: {
     overflowX: "hidden",
     overflowY: "auto",
-    height: "calc(100% - 250px)"
+    height: "28em"
   }
 };
 
@@ -38,8 +36,7 @@ class App extends Component {
     this.state = {
       user: getCurrentUser() || {},
       newTodo: "",
-      todoList: [],
-      showDeleted: false
+      todoList: []
     };
     this.initUserData();
   }
@@ -48,7 +45,8 @@ class App extends Component {
     let newTodo = {
       title: e.target.value,
       status: "",
-      deleted: false
+      deleted: false,
+      date: new Date().toLocaleString()
     };
     TodoModel.create(
       newTodo,
@@ -134,12 +132,6 @@ class App extends Component {
     }
   }
 
-  toggleDeletedList() {
-    let stateCopy = copyState(this.state);
-    stateCopy.showDeleted = stateCopy.showDeleted === false ? true : false;
-    this.setState(stateCopy);
-  }
-
   render() {
     let todos = this.state.todoList
       .filter(function(list) {
@@ -159,22 +151,16 @@ class App extends Component {
     return (
       <Card className={this.props.classes.app}>
         <CardContent>
-          <Typography variant="display1" className={this.props.classes.header}>
+          <Typography variant="display2" className={this.props.classes.header}>
             {this.state.user.username || "我"}的待办列表
             <TodoConfig
-              toggleDeletedList={this.toggleDeletedList.bind(this)}
+              user={this.state.user}
+              todoList={this.state.todoList}
               clearList={this.clearList.bind(this)}
               logOut={this.logOut.bind(this)}
-            />
-          </Typography>
-          {this.state.showDeleted ? (
-            <DeletedList
-              user={this.state.user}
-              toggleDeletedList={this.toggleDeletedList.bind(this)}
-              todoList={this.state.todoList}
               undoDelete={this.undoDelete.bind(this)}
             />
-          ) : null}
+          </Typography>
           <SearchBox
             className={this.props.classes.search}
             newTodo={this.state.newTodo}

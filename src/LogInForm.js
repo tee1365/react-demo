@@ -41,10 +41,11 @@ function LogInForm(props) {
       <Button
         className={props.classes.button}
         onClick={props.showForgetPassword.bind(this)}
+        color="secondary"
       >
         忘记密码了？
       </Button>
-      <Button className={props.classes.button} type="submit">
+      <Button className={props.classes.button} type="submit" color="primary">
         提交
       </Button>
     </form>

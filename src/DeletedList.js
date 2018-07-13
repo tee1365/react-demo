@@ -6,22 +6,12 @@ import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import {withStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Modal from "@material-ui/core/Modal";
+import green from "@material-ui/core/colors/green";
 
-const styles = {
-  wrapper: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.8)"
-  },
+const styles = theme => ({
   header: {
     margin: "20px",
     marginLeft: "0"
@@ -31,14 +21,34 @@ const styles = {
   },
   card: {
     width: "22em",
-    zIndex: "1600"
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%,-50%)"
   },
   listBox: {
     overflowX: "hidden",
     overflowY: "auto",
     height: "20em"
+  },
+  button: {
+    color: theme.palette.getContrastText(green[700]),
+    backgroundColor: green[700],
+    "&:hover": {
+      backgroundColor: green[900]
+    }
+  },
+  title: {
+    width: "12em",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
+  },
+  item: {
+    padding: "12px 0",
+    justifyContent: "space-between"
   }
-};
+});
 
 class DeletedList extends Component {
   constructor(props) {
@@ -71,11 +81,12 @@ class DeletedList extends Component {
   render() {
     let deletedListElement = this.state.deletedList.map((item, index) => {
       return (
-        <ListItem key={index}>
-          <ListItemText variant="Headline" className={this.props.classes.title}>
+        <ListItem key={index} className={this.props.classes.item}>
+          <Typography variant="title" className={this.props.classes.title}>
             {item.title}
-          </ListItemText>
+          </Typography>
           <Button
+            className={this.props.classes.button}
             onClick={e => {
               this.props.undoDelete(e, item);
             }}
@@ -87,10 +98,16 @@ class DeletedList extends Component {
     });
 
     return (
-      <div className={this.props.classes.wrapper}>
+      <Modal
+        open={this.props.deletedListOpen}
+        onClose={this.props.toggleDeletedList.bind(this)}
+      >
         <Card className={this.props.classes.card}>
           <CardContent>
-            <Typography variant="title" className={this.props.classes.header}>
+            <Typography
+              variant="display2"
+              className={this.props.classes.header}
+            >
               被删除项列表
             </Typography>
             <TextField
@@ -114,7 +131,7 @@ class DeletedList extends Component {
             </Button>
           </CardActions>
         </Card>
-      </div>
+      </Modal>
     );
   }
 }

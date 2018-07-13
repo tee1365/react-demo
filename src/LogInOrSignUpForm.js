@@ -9,6 +9,12 @@ import Tab from "@material-ui/core/Tab";
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = {
+  form: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%,-50%)"
+  },
   title: {
     marginBottom: "20px",
     marginTop: "10px"
@@ -17,7 +23,7 @@ const styles = {
 
 function LogInOrSignUpForm(props) {
   return (
-    <Card>
+    <Card className={props.classes.form}>
       <Tabs value={props.selected} onChange={props.switch.bind(this)}>
         <Tab label="注册" value="signUp" />
         <Tab label="登录" value="logIn" />

@@ -76,6 +76,7 @@ export const TodoModel = {
     todo.set("status", options.status);
     todo.set("deleted", options.deleted);
     todo.set("title", options.title);
+    todo.set("date", options.date);
     let acl = new AV.ACL();
     acl.setPublicReadAccess(false);
     acl.setWriteAccess(AV.User.current(), true);
