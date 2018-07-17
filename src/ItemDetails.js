@@ -14,7 +14,8 @@ const styles = {
     transform: "translate(-50%,-50%)"
   },
   p: {
-    marginBottom: "30px"
+    marginBottom: "30px",
+    wordWrap: "break-word"
   }
 };
 
