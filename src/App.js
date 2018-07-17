@@ -87,7 +87,6 @@ class App extends Component {
     let stateCopy = copyState(this.state);
     stateCopy.user = user;
     this.setState(stateCopy);
-    this.setState({this.state.user:user})
   }
 
   logOut() {
