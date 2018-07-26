@@ -40,12 +40,12 @@ class UserDialog extends Component {
       alert("请先填写所有项目");
       return;
     }
-    if (username.length < 6) {
-      alert("用户名长度需要大于6位");
+    if (username.length < 3 || username.length > 12) {
+      alert("用户名长度需要大于3位小于12位");
       return;
     }
-    if (password.length < 8) {
-      alert("密码长度需大于8位");
+    if (password.length < 6 || password.length > 12) {
+      alert("密码长度需大于6位小于12位");
       return;
     }
     let success = user => {
